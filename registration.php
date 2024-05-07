@@ -1,7 +1,7 @@
 <div class="container-fluid">
-	<form action="" id="manage-book">
+	<form action="" id="manage-register">
 		<input type="hidden" name="id" value="<?php echo isset($id) ? $id :'' ?>">
-		<input type="hidden" name="venue_id" value="<?php echo isset($_GET['venue_id']) ? $_GET['venue_id'] :'' ?>">
+		<input type="hidden" name="event_id" value="<?php echo isset($_GET['event_id']) ? $_GET['event_id'] :'' ?>">
 		<div class="form-group">
 			<label for="" class="control-label">Full Name</label>
 			<input type="text" class="form-control" name="name"  value="<?php echo isset($name) ? $name :'' ?>" required>
@@ -18,14 +18,6 @@
 			<label for="" class="control-label">Contact #</label>
 			<input type="text" class="form-control" name="contact"  value="<?php echo isset($contact) ? $contact :'' ?>" required>
 		</div>
-		<div class="form-group">
-			<label for="" class="control-label">Duration</label>
-			<input type="text" class="form-control" name="duration"  value="<?php echo isset($duration) ? $duration :'' ?>" required>
-		</div>
-		<div class="form-group">
-			<label for="" class="control-label">Desired Event Schedule</label>
-			<input type="text" class="form-control datetimepicker" name="schedule"  value="<?php echo isset($schedule) ? $schedule :'' ?>" required>
-		</div>
 	</form>
 </div>
 <script>
@@ -33,12 +25,12 @@
 	      format:'Y/m/d H:i',
 	      startDate: '+3d'
 	  })
-	$('#manage-book').submit(function(e){
+	$('#manage-register').submit(function(e){
 		e.preventDefault()
 		start_load()
 		$('#msg').html('')
 		$.ajax({
-			url:'admin/ajax.php?action=save_book',
+			url:'admin/ajax.php?action=save_register',
 			data: new FormData($(this)[0]),
 		    cache: false,
 		    contentType: false,
@@ -47,9 +39,9 @@
 		    type: 'POST',
 			success:function(resp){
 				if(resp==1){
-					alert_toast("book Request Sent.",'success')
+					alert_toast("Registration Request Sent.",'success')
 						end_load()
-						uni_modal("","book_msg.php")
+						uni_modal("","register_msg.php")
 
 				}
 			}
